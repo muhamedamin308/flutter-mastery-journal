@@ -1,26 +1,29 @@
-import 'dart:io'; // 1. Import the Input/Output library
+import 'dart:io';
 
 void main() {
-  // 2. Ask the user for input
-  stdout.write('Enter a number to see its multiplication table: ');
-
-  // 3. Read the input from the terminal
-  // We use '!' because readLineSync() could technically be null
+  stdout.write('Please enter a number: ');
   String? input = stdin.readLineSync();
 
-  // 4. Convert the String input into an Integer
-  // int.tryParse handles cases where the user types letters instead of numbers
-  int? number = int.tryParse(input ?? '');
+  double? value = double.tryParse(input ?? '0');
 
-  if (number != null) {
-    print('\n--- Multiplication Table for $number ---');
+  if (value == null) {
+    print('Error: "${input}" is not a valid number. System ended.');
+    return;
+  }
 
-    for (int i = 1; i <= 10; i++) {
-      print('$number x $i = ${number * i}');
-    }
+  print('You entered: $value');
+  print('Choose conversion:\n1. KM to Miles\n2. °C to °F');
+  stdout.write('Selection: ');
 
-    print('---------------------------------------');
+  String? choice = stdin.readLineSync();
+
+  if (choice == "1") {
+    double miles = value * 0.621371;
+    print('${value}KM is approximately ${miles.toStringAsFixed(2)} miles.');
+  } else if (choice == "2") {
+    double fahrenheit = (value * 9 / 5) + 32;
+    print('${value}°C is ${fahrenheit.toStringAsFixed(1)}°F.');
   } else {
-    print('Invalid input! Please enter a valid whole number.');
+    print('Invalid selection. System ended.');
   }
 }
