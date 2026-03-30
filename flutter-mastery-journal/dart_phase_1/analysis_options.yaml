@@ -13,18 +13,32 @@
 
 include: package:lints/recommended.yaml
 
-# Uncomment the following section to specify additional rules.
+analyzer:
+  exclude:
+    - '**/*.g.dart'   # generated files
+    - '**/*.freezed.dart'
+  errors:
+    missing_required_param: error
+    missing_return: error
 
-# linter:
-#   rules:
-#     - camel_case_types
+linter:
+  rules:
+    # Dart 3 style
+    - prefer_final_locals
+    - prefer_final_in_for_each
+    - unnecessary_nullable_for_final_variable_declarations
+    - use_super_parameters
 
-# analyzer:
-#   exclude:
-#     - path/to/excluded/files/**
+    # Safety
+    - avoid_dynamic_calls
+    - avoid_print             # use a logger in production
+    - cancel_subscriptions
+    - close_sinks
 
-# For more information about the core and recommended set of lints, see
-# https://dart.dev/go/core-lints
+    # Collections
+    - prefer_collection_literals
+    - prefer_spread_collections
 
-# For additional information about configuring this file, see
-# https://dart.dev/guides/language/analysis-options
+    # Async
+    - unawaited_futures
+    - avoid_void_async
